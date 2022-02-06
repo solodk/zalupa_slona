@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd home/ubuntu/Desktop/projects/
+
 sha=0
 previous_sha=0
 
@@ -18,7 +20,7 @@ config () {
 
 upload () {
 	## upload commands here
-	rsync -avzhe "ssh -i ~/.ssh/git.pem" --exclude '.git' --delete ~/Desktop/projects/zalupa_slona ec2-user@$instance_ip:~/projects
+	rsync -avzhe "ssh -i ~/.ssh/git.pem" --exclude '.git' --delete ~/Desktop/projects/ ec2-user@$instance_ip:~/projects
 	echo "--> Monitor $(date +%T): Files uploaded. OK"
 	echo "(Press enter to force update)" 
 }
@@ -54,6 +56,5 @@ run () {
 
 echo "--> Monitor $(date +%T): Init..."
 config
-cd /home/ubuntu/Desktop
 echo "--> Monitor $(date +%T): Monitoring filesystem... (Press enter to force update)"
 run
