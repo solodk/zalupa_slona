@@ -24,7 +24,6 @@ upload () {
 	git commit -m "AWS GIT stakeholder commit $CURRENT_DATE"
 	git push origin main:main
 	echo "--> Monitor $(date +%T): Files uploaded. OK"
-	echo "(Press enter to force update)" 
 }
 
 changed () {
@@ -38,9 +37,14 @@ changed () {
 compare () {
 	## updating sha
 	## compairing two sha stages
-	## if not true - goint to step 'changed' 
+	## if not true -  making upload and wait 2h
     	update_sha
-    	if [[ $sha != $previous_sha ]] ; then changed; fi
+    	if [[ $sha != $previous_sha ]]; then 
+    		changed
+    		sleep 2h
+    	else
+    		sudo shutdown -h now
+    	fi
 }
 
 run () {
@@ -51,7 +55,6 @@ run () {
 
 		read -s -t 1 && (
 		echo "--> Monitor $(date +%T): Forced Upload..."
-		upload
 		)
 	done
 }
