@@ -20,7 +20,7 @@ config () {
 
 upload () {
 	## upload commands here
-	rsync -avzhe "ssh -i ~/.ssh/git.pem" --exclude '.git' --delete ~/Desktop/projects/ ec2-user@$instance_ip:~/projects
+	rsync -avzhe "ssh -i ~/.ssh/git.pem -o "StrictHostKeyChecking=no"" --exclude '.git' --delete ~/Desktop/projects/ ec2-user@$instance_ip:~/projects
 	echo "--> Monitor $(date +%T): Files uploaded. OK"
 	echo "(Press enter to force update)" 
 }
@@ -44,9 +44,7 @@ compare () {
 run () {
 	#
 	while true; do
-
 		compare
-
 		read -s -t 1 && (
 		echo "--> Monitor $(date +%T): Forced Upload..."
 		upload
