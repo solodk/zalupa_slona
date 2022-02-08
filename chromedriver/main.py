@@ -7,9 +7,10 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 import time
 
-service = Service("C:\\Users\\krabs\\Downloads\\govno_slona\\govno_slona\\chromedriver\\chromedriver.exe")
-url = "https://skladbet.com/login/"
-url2 = "https://skladbet.com/threads/26-10-21.5338/"
+service = Service("./chromedriver")
+#service = Service("C:\\Users\\krabs\\Downloads\\govno_slona\\govno_slona\\chromedriver\\chromedriver.exe")
+url = "https://care.service-now.com/"
+#url2 = "https://care.service-now.com/task_list.do"
 driver = webdriver.Chrome(service=service)
 
 def telegram_bot(token):
@@ -17,7 +18,7 @@ def telegram_bot(token):
 
     @bot.message_handler(commands=["start"])
     def start_message(message):
-        bot.send_message(message.chat.id, "Batko nash bandera")
+        bot.send_message(message.chat.id, "Test output msg")
 
     @bot.message_handler(content_types=["text"])
     def send_text(message):

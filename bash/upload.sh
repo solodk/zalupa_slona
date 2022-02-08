@@ -42,7 +42,6 @@ compare () {
 }
 
 run () {
-	#
 	while true; do
 		compare
 		read -s -t 1 && (
@@ -54,5 +53,5 @@ run () {
 
 echo "--> Monitor $(date +%T): Init..."
 config
-echo "--> Monitor $(date +%T): Monitoring filesystem... (Press enter to force update)"
+echo "--> Monitor $(date +%T): Monitoring filesystem..."
 run
