@@ -1,5 +1,7 @@
 #!/bin/bash
 
+clear
+
 CURRENT_DATE=$(date +%d-%b-%Y%t%T)
 sha=0
 previous_sha=0
@@ -33,7 +35,7 @@ changed () {
 compare () {
 	## updating sha
 	## compairing two sha stages
-	## if not true -  making upload and wait 2h
+	## if not match -  making upload and wait 2h
     	update_sha
     	if [[ $sha != $previous_sha ]]; then 
     		changed
@@ -47,13 +49,13 @@ run () {
 	#
 	while true; do
 		compare
-		read -s -t 1 && (
-		echo "--> Monitor $(date +%T): Forced Upload..."
-		upload
-		)
+		#read -s -t 1 && (
+		#echo "--> Monitor $(date +%T): Forced Upload..."
+		#upload
+		#)
 	done
 }
 
 echo "--> Monitor $(date +%T): Init..."
-echo "--> Monitor $(date +%T): Monitoring filesystem... (Press enter to force update)"
+echo "--> Monitor $(date +%T): Monitoring filesystem..."
 run
