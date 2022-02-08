@@ -1,14 +1,14 @@
-from auth_data import bet_pass
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 import time
 
-# service=Service("/home/ubuntu/PycharmProjects/govno_slona/chromedriver/chromedriver")
-service = Service("C:\\Users\\krabs\\Downloads\\govno_slona\\govno_slona\\chromedriver\\chromedriver.exe")
-url = "https://skladbet.com/login/"
-url2 = "https://skladbet.com/threads/26-10-21.5338/"
+#service=Service("/home/ubuntu/PycharmProjects/govno_slona/chromedriver/chromedriver")
+#service = Service("C:\\Users\\krabs\\Downloads\\govno_slona\\govno_slona\\chromedriver\\chromedriver.exe")
+service = Service("chromedriver/chromedriver")
+url = "https://care.service-now.com"
+url2 = "https://care.service-now.com/task_list.do"
 driver = webdriver.Chrome(service=service)
 
 try:
@@ -16,11 +16,11 @@ try:
 
     email_input = driver.find_element(By.NAME, "login")
     email_input.clear()
-    email_input.send_keys("scrambletoe@gmail.com")
+    email_input.send_keys()
 
     password_input = driver.find_element(By.NAME, "password")
     password_input.clear()
-    password_input.send_keys(bet_pass)
+    password_input.send_keys()
 
     password_input.send_keys(Keys.ENTER)
     time.sleep(1)
