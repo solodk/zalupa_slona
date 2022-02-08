@@ -1,16 +1,10 @@
 #!/bin/bash
 
-## MYREPO_DIR=/home/ec2-user/projects/zalupa_slona/.git ##
 CURRENT_DATE=$(date +%d-%b-%Y%t%T)
-
-echo $CURRENT_DATE
-cd ~/projects/zalupa_slona/
-
-
-
-
 sha=0
 previous_sha=0
+
+cd ~/projects/zalupa_slona/
 
 update_sha()
 {
@@ -24,6 +18,8 @@ upload () {
 	git commit -m "AWS GIT stakeholder commit $CURRENT_DATE"
 	git push origin main:main
 	echo "--> Monitor $(date +%T): Files uploaded. OK"
+	echo "--> Monitor $(date +%T): 2 hours timeout. Next check at $(($(date +%H)+2)):$(date +%M)"
+	echo "(Press enter to force update)"
 }
 
 changed () {
@@ -50,11 +46,10 @@ compare () {
 run () {
 	#
 	while true; do
-
 		compare
-
 		read -s -t 1 && (
 		echo "--> Monitor $(date +%T): Forced Upload..."
+		upload
 		)
 	done
 }
