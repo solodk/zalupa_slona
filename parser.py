@@ -4,23 +4,24 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 import time
 
-#service=Service("/home/ubuntu/PycharmProjects/govno_slona/chromedriver/chromedriver")
-#service = Service("C:\\Users\\krabs\\Downloads\\govno_slona\\govno_slona\\chromedriver\\chromedriver.exe")
-service = Service("chromedriver/chromedriver")
+
+# service = Service("C:\\Users\\krabs\\Downloads\\govno_slona\\govno_slona\\chromedriver\\chromedriver.exe")
+# use for windows
+service: Service = Service("chromedriver/chromedriver")
 url = "https://care.service-now.com"
 url2 = "https://care.service-now.com/task_list.do"
-driver = webdriver.Chrome(service=service)
+driver = webdriver.Chrome()
 
 try:
     driver.get(url=url)
 
-    email_input = driver.find_element(By.NAME, "login")
+    email_input = driver.find_element(By.NAME, "user_name")
     email_input.clear()
-    email_input.send_keys()
+    email_input.send_keys("test")
 
-    password_input = driver.find_element(By.NAME, "password")
+    password_input = driver.find_element(By.NAME, "user_password")
     password_input.clear()
-    password_input.send_keys()
+    password_input.send_keys("test")
 
     password_input.send_keys(Keys.ENTER)
     time.sleep(1)
