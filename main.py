@@ -1,7 +1,8 @@
 import telebot
-#import parser
+import parser
 #import selenium
 from auth_data import token
+
 
 def telegram_bot(token):
     bot = telebot.TeleBot(token)
@@ -19,4 +20,6 @@ def telegram_bot(token):
 
 
 if __name__ == '__main__':
-    telegram_bot(token)
+    #telegram api blocked at work
+    #telegram_bot(token)
+    parser
