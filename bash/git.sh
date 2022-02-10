@@ -2,7 +2,6 @@
 
 clear
 
-CURRENT_DATE=$(date +%d-%b-%Y%t%T)
 sha=0
 previous_sha=0
 
@@ -17,7 +16,7 @@ update_sha()
 upload () {
 	## upload commands here
 	git add --all
-	git commit -m "AWS GIT stakeholder commit $CURRENT_DATE"
+	git commit -m "AWS GIT stakeholder commit $(date +%d-%b-%Y%t%T)"
 	git push origin main:main
 	echo "--> Monitor $(date +%T): Files uploaded. OK"
 	echo "--> Monitor $(date +%T): 2 hours timeout. Next check at $(($(date +%H)+2)):$(date +%M)"

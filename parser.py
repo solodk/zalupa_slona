@@ -10,8 +10,8 @@ import auth_data
 # chrome must be installed and version of chromedriver must be identical
 service = Service('/home/ubuntu/Desktop/projects/zalupa_slona/chromedriver/chromedriver')
 chrome_options = Options()
-chrome_options.add_argument("--headless")
-chrome_options.add_argument("--disable-gpu")
+#chrome_options.add_argument("--headless")
+#chrome_options.add_argument("--disable-gpu")
 driver = webdriver.Chrome(service=service, options=chrome_options)
 logged = False
 on_page = False
@@ -33,17 +33,19 @@ try:
         logged = True
 
     if logged and not on_page:
-        driver.get(url="https://skladbet.com/forums/platnye-prognozy-besplatno.41/?prefix_id=19")
-        page_url = driver.find_element(By.ID, "js-XFUniqueId10")
-        page_url.send_keys(Keys.ENTER)
-        on_page = True
+        for i in range(62):
+            driver.get(url="https://skladbet.com/forums/platnye-prognozy-besplatno.41/?prefix_id=19")
+            page_url = driver.find_element(By.CSS_SELECTOR, "structItem-title")
+            sleep(1)
+            page_url.send_keys(Keys.ENTER)
+            #on_page = True
 
     if logged and on_page:
         items = driver.find_elements(By.CLASS_NAME, "bbWrapper")
         with open("project.txt", "w") as file:
             for i in range(0, (len(items) - 1)):
                 file.write(items[i].text)
-                print("-------------")
+                print(i)
 
 except Exception as ex:
     print(ex)
