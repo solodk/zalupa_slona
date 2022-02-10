@@ -35,17 +35,21 @@ try:
     if logged and not on_page:
         for i in range(62):
             driver.get(url="https://skladbet.com/forums/platnye-prognozy-besplatno.41/?prefix_id=19")
-            page_url = driver.find_element(By.CSS_SELECTOR, "structItem-title")
-            sleep(1)
-            page_url.send_keys(Keys.ENTER)
-            #on_page = True
+            for k in range(0, (len(page_url))):
+                page_url = driver.find_elements(By.CSS_SELECTOR, "[data-xf-init='preview-tooltip']")
+                time.sleep(1)
+                page_url[k].send_keys(Keys.ENTER)
+                items = driver.find_elements(By.CLASS_NAME, "bbWrapper")
+                with open("project.txt", "a") as file:
+                    for u in range(0, (len(items) - 1)):
+                        file.write(items[u].text)
+                        print(u)
+                driver.back()
+            page = driver.find_element(By.CLASS, "pageNav-page pageNav-page--later")
+            time.sleep(1)
+            page.send_keys(Keys.ENTER)
 
-    if logged and on_page:
-        items = driver.find_elements(By.CLASS_NAME, "bbWrapper")
-        with open("project.txt", "w") as file:
-            for i in range(0, (len(items) - 1)):
-                file.write(items[i].text)
-                print(i)
+
 
 except Exception as ex:
     print(ex)
