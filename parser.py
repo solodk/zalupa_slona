@@ -2,38 +2,47 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.chrome.options import Options
 import time
 import auth_data
-
 # service = Service("C:\\Users\\krabs\\Downloads\\govno_slona\\govno_slona\\chromedriver\\chromedriver.exe")
 # use for windows
 # chrome must be installed and version of chromedriver must be identical
 service = Service('/home/ubuntu/Desktop/projects/zalupa_slona/chromedriver/chromedriver')
-url = "https://care.service-now.com"
-url2 = "https://care.service-now.com/task_list.do"
 driver = webdriver.Chrome(service=service)
+chrome_options = Options()
+chrome_options.add_argument("--headless")
+logged = False
+on_page = False
 
 try:
-    driver.get(url="https://skladbet.com/login")
+    while not logged:
+        driver.get(url="https://skladbet.com/login")
 
-    email_input = driver.find_element(By.NAME, "login")
-    email_input.clear()
-    email_input.send_keys(auth_data.user_email)
+        email_input = driver.find_element(By.NAME, "login")
+        email_input.clear()
+        email_input.send_keys(auth_data.user_email)
 
-    password_input = driver.find_element(By.NAME, "password")
-    password_input.clear()
-    password_input.send_keys(auth_data.user_pasword)
+        password_input = driver.find_element(By.NAME, "password")
+        password_input.clear()
+        password_input.send_keys(auth_data.user_pasword)
 
-    time.sleep(2)
-    #
-    # password_input.send_keys(Keys.ENTER)
-    # time.sleep(1)
-    #
-    # driver.get(url2)
-    # items = driver.find_elements(By.CLASS_NAME, "bbWrapper")
-    # with open("project.txt", "w") as file:
-    #     for i in range(0, len(items)):
-    #         file.write(items[i].text)
+        password_input.send_keys(Keys.ENTER)
+        time.sleep(1)
+        logged = True
+
+    if logged and not on_page:
+        driver.get(url="https://skladbet.com/forums/platnye-prognozy-besplatno.41/?prefix_id=19")
+        page_url = driver.find_element(By.ID, "js-XFUniqueId10")
+        page_url.send_keys(Keys.ENTER)
+        on_page = True
+
+    if logged and on_page:
+        items = driver.find_elements(By.CLASS_NAME, "bbWrapper")
+        with open("project.txt", "w") as file:
+            for i in range(0, len(items)):
+                file.write(items[i].text)
+                print("-------------")
 
 except Exception as ex:
     print(ex)
