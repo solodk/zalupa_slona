@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd home/ubuntu/Desktop/projects/
+cd /home/ubuntu/Desktop/projects/
 
 sha=0
 previous_sha=0
