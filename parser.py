@@ -7,8 +7,9 @@ from selenium.webdriver.chrome.options import Options
 # service = Service("C:\\Users\\krabs\\Downloads\\govno_slona\\govno_slona\\chromedriver\\chromedriver.exe")
 # use for windows
 # chrome must be installed and version of chromedriver must be identical
-service = Service('/home/ubuntu/Desktop/projects/zalupa_slona/chromedriver/chromedriver')
+service = Service('chromedriver/chromedriver')
 chrome_options = Options()
+chrome_options.add_argument("--no-sandbox")
 chrome_options.add_argument("--headless")
 chrome_options.add_argument("--disable-gpu")
 driver = webdriver.Chrome(service=service, options=chrome_options)
@@ -27,6 +28,7 @@ def login(email, password):
 
     password_input.send_keys(Keys.ENTER)
 
+    print('login passed')
 
 def collect():
     for i in range(1, 61):

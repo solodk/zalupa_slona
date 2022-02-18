@@ -9,30 +9,34 @@ def telegram_bot(token):
 
     @bot.message_handler(commands=["start"])
     def start_message(message):
-        markup = telebot.types.ReplyKeyboardMarkup(True, False)
-        markup.row('')
-        bot.send_message(message.chat.id, "Welcome test msg")
+        markup = telebot.types.ReplyKeyboardMarkup(resize_keyboard=True)
+        item1 = types.KeyboardButton('Recent items')
+        item2 = types.KeyboardButton('Collect data')
+        item3 = types.KeyboardButton('Get data')
+
+        markup.add(item1, item2, item3)
+
+        bot.send_message(message.chat.id, "HI, {0.first_name}!".format(message.from_user), reply_markup=markup)
 
     @bot.message_handler(content_types=["text"])
     def send_text(message):
-        bot.send_message(message.chat.id, parser.recent())
+        if message.chat.type == 'private':
+            if message.text == 'Recent items':
+                bot.send_message(message.chat.id, parser.recent())
 
-    @bot.message_handler(commands=['button'])
-    def button(message):
-        markup = types.InlineKeyboardMarkup(row_width=1)
-        item = types.InlineKeyboardButton('Показать последнее', callback_data='show_recent')
-        markup.add(item)
+            elif message.text == 'Collect data':
+                parser.collect()
+                bot.send_message(message.chat.id, 'Succeed')
 
-        bot.send_message(message.chat.id, 'Выбери', reply_markup=markup)
+            elif message.text == 'Get data':
+                bot.send_document(message.chat.id, open('project.txt', 'rb'))
+
+        # bot.send_message(message.chat.id, "Hi, what's up?")
 
     bot.delete_webhook()
     bot.infinity_polling()
 
 
 if __name__ == '__main__':
-    #telegram api blocked at work
-    #telegram_bot(token)
     parser.login(auth_data.user_email, auth_data.user_password)
-    #parser.collect()
-    parser.recent()
-    parser.close()
+    telegram_bot(auth_data.token)
